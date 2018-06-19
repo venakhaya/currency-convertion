@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ExhangeRates</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="convert_item_detail">tahul</string>
+    <string name="convert_title">Convert Currency</string>
+    <string name="add_currency">Add Currency</string>
+    <string name="connection_message">Network Connection, please check connection!</string>
+    <string name="failed_network_data">Something went wrong, Could not get data!</string>
+    <string name="failed_add_currency">Failed to add, currency already exist!</string>
+    <string name="successful_add_currency">Currency to added!</string>
+    <string name="history_error_message">Impossible de charger l\'historique</string>
+</resources>

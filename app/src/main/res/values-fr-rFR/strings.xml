@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ExhangeRates</string>
+    <string name="title_item_detail">Détail de la devise</string>
+    <string name="convert_item_detail">Convertir</string>
+    <string name="convert_title">Devise</string>
+    <string name="add_currency">Ajouter une devise</string>
+    <string name="connection_message">Connexion réseau, s\'il vous plaît vérifier la connexion!</string>
+    <string name="failed_network_data">Quelque chose s\'est mal passé, impossible d\'obtenir des données!</string>
+    <string name="failed_add_currency">Échec de \'ajout, la devise existe déjà!</string>
+    <string name="successful_add_currency">Devise à ajouter!</string>
+    <string name="history_error_message">fashilu tahmil alsijil</string>
+</resources>

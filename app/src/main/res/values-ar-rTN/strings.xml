@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ExhangeRates</string>
+    <string name="title_item_detail">tafasil aleamala</string>
+    <string name="convert_item_detail">Convert</string>
+    <string name="convert_title">tahwil aleamla</string>
+    <string name="add_currency">adafu eumla</string>
+    <string name="connection_message">aitisal alshabakat , yrja altahaquq min alaitsal!</string>
+    <string name="failed_network_data">hadath khata ma , taeadhar alhusul ealaa albianat!</string>
+    <string name="failed_add_currency">fashilun fi \'iidafat , aleumlat mawjudat balfiel!</string>
+    <string name="successful_add_currency">aleumlat almdaf!</string>
+    <string name="history_error_message">fashilu tahmil alsijil</string>
+</resources>
