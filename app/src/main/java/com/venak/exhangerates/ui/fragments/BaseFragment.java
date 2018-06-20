@@ -10,13 +10,16 @@ import com.venak.exhangerates.application.CurrencyApplication;
 import com.venak.exhangerates.repository.CurrencyDb;
 import com.venak.exhangerates.services.handler.ServiceExecutor;
 
+import javax.inject.Inject;
+
 public class BaseFragment extends Fragment {
+    @Inject
     public ServiceExecutor serviceExecutor;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        serviceExecutor = new ServiceExecutor();
+        CurrencyApplication.getAppComponent().inject(this);
     }
 
 

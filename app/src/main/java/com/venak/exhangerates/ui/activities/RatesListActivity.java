@@ -18,9 +18,8 @@ import com.venak.exhangerates.model.ExchangeRate;
 import com.venak.exhangerates.services.handler.ServiceExecutor;
 import com.venak.exhangerates.services.handler.implementation.GetExchangeRatesServiceImpl;
 import com.venak.exhangerates.ui.fragments.AddFragment;
-import com.venak.exhangerates.ui.fragments.BaseFragment;
 import com.venak.exhangerates.ui.fragments.ConvertFragment;
-import com.venak.exhangerates.ui.fragments.ItemDetailFragment;
+import com.venak.exhangerates.ui.fragments.DetailFragment;
 
 import java.util.List;
 
@@ -48,7 +47,11 @@ public class RatesListActivity extends BaseActivity implements DataAccessListene
         addFab = findViewById(R.id.add_fab);
         if (findViewById(R.id.item_detail_container) != null) {
             isTwoPane = true;
+        } else {
+            addFab.setVisibility(View.GONE);
+            fab.setVisibility(View.GONE);
         }
+
         addFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +103,7 @@ public class RatesListActivity extends BaseActivity implements DataAccessListene
     @Override
     protected void onResume() {
         super.onResume();
-        new ServiceExecutor().executeService(new GetExchangeRatesServiceImpl(this, true));
+        serviceExecutor.executeService(new GetExchangeRatesServiceImpl(this, true));
     }
 
     public class RatesRecyclerViewAdapter
@@ -115,15 +118,15 @@ public class RatesListActivity extends BaseActivity implements DataAccessListene
                 ExchangeRate item = (ExchangeRate) view.getTag();
                 if (isTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID, item);
+                    arguments.putSerializable(DetailFragment.ARG_ITEM_ID, item);
                     exchangeRate = item;
-                    ItemDetailFragment fragment = new ItemDetailFragment();
+                    DetailFragment fragment = new DetailFragment();
                     fragment.setArguments(arguments);
                     commitFragmentById(ratesListActivity, R.id.item_detail_container, fragment);
                 } else {
                     Context context = view.getContext();
                     Intent intent = new Intent(view.getContext(), DetailActivity.class);
-                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item);
+                    intent.putExtra(DetailFragment.ARG_ITEM_ID, item);
                     context.startActivity(intent);
                 }
             }

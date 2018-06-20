@@ -5,11 +5,12 @@ import com.venak.exhangerates.listeners.DataAccessListener;
 import com.venak.exhangerates.model.ExchangeRate;
 import com.venak.exhangerates.services.handler.BaseServiceHandler;
 
-public class AddCurrencyServiceImpl implements BaseServiceHandler {
+public class AddCurrencyServiceImpl extends BaseServiceHandler {
     private DataAccessListener dataAccessListener;
     private ExchangeRate exchangeRate;
 
     public AddCurrencyServiceImpl(DataAccessListener dataAccessListener, ExchangeRate exchangeRate) {
+        super();
         this.dataAccessListener = dataAccessListener;
         this.exchangeRate = exchangeRate;
     }
@@ -17,22 +18,22 @@ public class AddCurrencyServiceImpl implements BaseServiceHandler {
     @Override
     public void executeRequestCommand() {
         try {
-
             if (exchangeRate == null) {
-                dataAccessListener.onFailed(CONTEXT.getString(R.string.failed_add_currency));
+                dataAccessListener.onFailed(context.getString(R.string.failed_add_currency));
             } else {
-                ExchangeRate temp = CURRENCY_DB_CONNECTION.exchangeRateDao().findByByKey(exchangeRate.key);
+                ExchangeRate temp = dbConnection.exchangeRateDao().findByByKey(exchangeRate.key);
                 if (temp == null) {
-                    CURRENCY_DB_CONNECTION.exchangeRateDao().insert(exchangeRate);
+                    dbConnection.exchangeRateDao().insert(exchangeRate);
                 } else {
                     exchangeRate.id = temp.id;
-                    CURRENCY_DB_CONNECTION.exchangeRateDao().update(exchangeRate);
+                    dbConnection.exchangeRateDao().update(exchangeRate);
                 }
-                dataAccessListener.onSuccess(CONTEXT.getString(R.string.successful_add_currency));
+                dataAccessListener.onSuccess(context.getString(R.string.successful_add_currency));
             }
         } catch (Exception e) {
-            dataAccessListener.onFailed(CONTEXT.getString(R.string.failed_add_currency));
-        }
+            dataAccessListener.onFailed(context.getString(R.string.failed_add_currency));
+        }finally {
 
+        }
     }
 }

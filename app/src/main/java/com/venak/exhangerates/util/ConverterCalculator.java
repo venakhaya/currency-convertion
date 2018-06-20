@@ -2,7 +2,13 @@ package com.venak.exhangerates.util;
 
 import com.venak.exhangerates.model.Transaction;
 
+import javax.inject.Inject;
+
 public class ConverterCalculator {
+    @Inject
+    public ConverterCalculator() {
+    }
+
     private static final double BASE_MARK_UP = 1.07;
     private static final double ALT_MARK_UP = 1.04;
 

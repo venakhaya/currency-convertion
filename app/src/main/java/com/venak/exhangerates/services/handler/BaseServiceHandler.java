@@ -4,15 +4,29 @@ package com.venak.exhangerates.services.handler;
 import android.content.Context;
 
 import com.venak.exhangerates.application.CurrencyApplication;
-import com.venak.exhangerates.model.Currency;
+import com.venak.exhangerates.listeners.DataAccessListener;
 import com.venak.exhangerates.repository.CurrencyDb;
 import com.venak.exhangerates.util.ConverterCalculator;
 
-public interface BaseServiceHandler {
-    String APP_ID = "app_id";
-    Context CONTEXT = CurrencyApplication.getContext();
-    CurrencyDb CURRENCY_DB_CONNECTION = CurrencyApplication.getCurrencyDb();
-    ConverterCalculator CONVERTER_CALCULATOR = new ConverterCalculator();
+import javax.inject.Inject;
 
-    void executeRequestCommand();
+import retrofit2.Retrofit;
+
+public abstract class BaseServiceHandler {
+    @Inject
+    public CurrencyDb dbConnection;
+    @Inject
+    public Context context;
+    @Inject
+    public Retrofit retrofit;
+    @Inject
+    public ConverterCalculator converterCalculator;
+
+    protected DataAccessListener dataAccessListener;
+
+    public BaseServiceHandler() {
+        CurrencyApplication.getAppComponent().inject(this);
+    }
+
+    public abstract void executeRequestCommand();
 }

@@ -1,5 +1,6 @@
 package com.venak.exhangerates.services.handler.implementation;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.JsonElement;
@@ -9,7 +10,6 @@ import com.venak.exhangerates.listeners.DataAccessListener;
 import com.venak.exhangerates.model.Currency;
 import com.venak.exhangerates.model.ExchangeRate;
 import com.venak.exhangerates.model.ConvertHistory;
-import com.venak.exhangerates.services.ApiClient;
 import com.venak.exhangerates.services.handler.BaseServiceHandler;
 
 import java.util.ArrayList;
@@ -22,14 +22,14 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public class RatesHistoryImpl implements BaseServiceHandler {
+public class RatesHistoryImpl extends BaseServiceHandler {
     private static final String TAG = RatesHistoryImpl.class.getSimpleName();
     private static final String END_POINT = "history/{date}.json";
     private static final String DATE_PATH = "date";
     private DataAccessListener dataAccessListener;
     private String date;
 
-    public RatesHistoryImpl(DataAccessListener dataAccessListener, String date) {
+    public RatesHistoryImpl(@NonNull DataAccessListener dataAccessListener, String date) {
         this.dataAccessListener = dataAccessListener;
         this.date = date;
     }
@@ -37,7 +37,7 @@ public class RatesHistoryImpl implements BaseServiceHandler {
     @Override
     public void executeRequestCommand() {
         if (BuildConfig.IS_APP_CERTIFIED) {
-            HistoryRequest convertRequest = new ApiClient().provideRetrofit().create(HistoryRequest.class);
+            HistoryRequest convertRequest = retrofit.create(HistoryRequest.class);
             Call<Currency> ratesHistory = convertRequest.getRatesHistory(date, BuildConfig.API_APP_ID);
             Log.e(TAG, ratesHistory.request().url().toString());
             try {
@@ -60,11 +60,11 @@ public class RatesHistoryImpl implements BaseServiceHandler {
             }
         } else {
             //Only apply this Object when u the app does not have certified Certificate
-            final List<ConvertHistory> convertHistories = CURRENCY_DB_CONNECTION.historyDao().getAll();
+            final List<ConvertHistory> convertHistories = dbConnection.historyDao().getAll();
             if (convertHistories != null && convertHistories.size() > 0) {
                 dataAccessListener.onSuccess(convertHistories);
             } else {
-                dataAccessListener.onFailed(CONTEXT.getString(R.string.failed_network_data));
+                dataAccessListener.onFailed(context.getString(R.string.failed_network_data));
             }
         }
 
@@ -72,6 +72,6 @@ public class RatesHistoryImpl implements BaseServiceHandler {
 
     public interface HistoryRequest {
         @GET(END_POINT)
-        Call<Currency> getRatesHistory(@Path(DATE_PATH) String date, @Query(APP_ID) String appId);
+        Call<Currency> getRatesHistory(@Path(DATE_PATH) String date, @Query("app_id") String appId);
     }
 }

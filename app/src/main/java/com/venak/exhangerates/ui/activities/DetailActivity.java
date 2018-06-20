@@ -13,7 +13,7 @@ import com.venak.exhangerates.R;
 import com.venak.exhangerates.ui.fragments.AddFragment;
 import com.venak.exhangerates.ui.fragments.BaseFragment;
 import com.venak.exhangerates.ui.fragments.ConvertFragment;
-import com.venak.exhangerates.ui.fragments.ItemDetailFragment;
+import com.venak.exhangerates.ui.fragments.DetailFragment;
 
 /**
  * An activity representing a single Item detail screen. This
@@ -22,8 +22,8 @@ import com.venak.exhangerates.ui.fragments.ItemDetailFragment;
  * in a {@link RatesListActivity}.
  */
 public class DetailActivity extends BaseActivity implements View.OnClickListener {
-    private FloatingActionButton fab;
-    private FloatingActionButton add_fab;
+    private FloatingActionButton editFab;
+    private FloatingActionButton addFab;
     private Toolbar toolbar;
     private ActionBar actionBar;
 
@@ -33,18 +33,18 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         setContentView(R.layout.activity_item_detail);
         toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
-        fab = findViewById(R.id.fab);
-        add_fab = findViewById(R.id.add_fab);
-        fab.setOnClickListener(this);
-        add_fab.setOnClickListener(this);
+        editFab = findViewById(R.id.edit_fab);
+        addFab = findViewById(R.id.add_fab);
+        editFab.setOnClickListener(this);
+        addFab.setOnClickListener(this);
         actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         Bundle arguments = new Bundle();
-        arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID,
-                getIntent().getSerializableExtra(ItemDetailFragment.ARG_ITEM_ID));
-        ItemDetailFragment fragment = new ItemDetailFragment();
+        arguments.putSerializable(DetailFragment.ARG_ITEM_ID,
+                getIntent().getSerializableExtra(DetailFragment.ARG_ITEM_ID));
+        DetailFragment fragment = new DetailFragment();
         fragment.setArguments(arguments);
         commitFragmentById(this, R.id.item_detail_container, fragment);
     }
@@ -71,7 +71,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
                 fragment.setArguments(arguments);
                 commitFragmentById(this, R.id.item_detail_container, fragment);
                 break;
-            case R.id.fab:
+            case R.id.edit_fab:
                 arguments = new Bundle();
                 fragment = new ConvertFragment();
                 fragment.setArguments(arguments);

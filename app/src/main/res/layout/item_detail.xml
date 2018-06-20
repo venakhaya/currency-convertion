@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:textIsSelectable="true"
-    tools:context=".ui.fragments.ItemDetailFragment">
+    tools:context=".ui.fragments.DetailFragment">
 
     <TextView
         android:id="@+id/item_detail"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:textIsSelectable="true"
-        tools:context=".ui.fragments.ItemDetailFragment" />
+        tools:context=".ui.fragments.DetailFragment" />
 
     <LinearLayout
         android:id="@+id/history_container"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/reg_margin"
         android:orientation="vertical"
-        tools:context=".ui.fragments.ItemDetailFragment">
+        tools:context=".ui.fragments.DetailFragment">
 
     </LinearLayout>
 </LinearLayout>

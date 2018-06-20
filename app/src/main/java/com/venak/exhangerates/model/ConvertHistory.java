@@ -2,6 +2,11 @@ package com.venak.exhangerates.model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
+
+import com.venak.exhangerates.repository.DateTypeConverter;
+
+import java.util.Date;
 
 @Entity
 public class ConvertHistory {
@@ -30,4 +35,27 @@ public class ConvertHistory {
                         "\nDate:" + date;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public double getMarketValue() {
+        return marketValue;
+    }
+
+    public String getDate() {
+        return date;
+    }
 }

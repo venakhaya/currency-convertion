@@ -11,6 +11,7 @@ android {
         buildConfigField "String", "HOST", '"https://openexchangerates.org/api/"'
         buildConfigField "String", "API_APP_ID", '"3faa7033248e4011b0626a6a77d7ff82"'
         buildConfigField "Boolean", "IS_APP_CERTIFIED", "false"
+        buildConfigField "String", "DB_NAME", '"dbConnection"'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -20,7 +21,7 @@ android {
         }
     }
 }
-
+def daggerVer = 2.11
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
@@ -31,7 +32,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.0.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.google.dagger:dagger:2.10'
+    annotationProcessor "com.google.dagger:dagger-compiler:2.10"
     implementation 'android.arch.persistence.room:runtime:1.1.0'
+
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.0'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.6.3'

@@ -2,21 +2,23 @@ package com.venak.exhangerates.application;
 
 import android.app.Application;
 import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.room.Room;
 import android.arch.persistence.room.migration.Migration;
-import android.content.Context;
 
-import com.venak.exhangerates.repository.CurrencyDb;
+import com.venak.exhangerates.mudules.AppComponent;
+import com.venak.exhangerates.mudules.AppModule;
+import com.venak.exhangerates.mudules.DaggerAppComponent;
+import com.venak.exhangerates.mudules.NetModule;
 
 public class CurrencyApplication extends Application {
-    private static CurrencyDb currencyDb;
-    private static Context context;
+    private static AppComponent appComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        currencyDb = Room.databaseBuilder(getApplicationContext(), CurrencyDb.class, "CurrencyDa").build();
-        context = this;
+
+        appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).netModule(
+                new NetModule()).build();
+        appComponent.inject(this);
     }
 
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
@@ -26,11 +28,7 @@ public class CurrencyApplication extends Application {
         }
     };
 
-    public static Context getContext() {
-        return context;
-    }
-
-    public static CurrencyDb getCurrencyDb() {
-        return currencyDb;
+    public static AppComponent getAppComponent() {
+        return appComponent;
     }
 }

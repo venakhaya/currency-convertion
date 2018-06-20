@@ -19,7 +19,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public class ConvertCurrencyImpl implements BaseServiceHandler {
+public class ConvertCurrencyImpl extends BaseServiceHandler {
     private static final String TAG = ConvertCurrencyImpl.class.getSimpleName();
     private static final String END_POINT = "convert/{amount}/{from}/{to}";
     private DataAccessListener dataAccessListener;
@@ -45,26 +45,26 @@ public class ConvertCurrencyImpl implements BaseServiceHandler {
                     transaction.finalAmount = Double.parseDouble(jsonObject1.get("response").getAsString());
                 }
             } catch (Exception e) {
-                dataAccessListener.onFailed(CONTEXT.getString(R.string.failed_network_data));
+                dataAccessListener.onFailed(context.getString(R.string.failed_network_data));
                 e.printStackTrace();
             }
         } else {
-            transaction = CONVERTER_CALCULATOR.convert(transaction);
+            transaction = converterCalculator.convert(transaction);
         }
         ConvertHistory convertHistory = new ConvertHistory(transaction.from.key,
                 transaction.to.key, transaction.amount, transaction.finalAmount, Util.date(new Date()));
-        CURRENCY_DB_CONNECTION.historyDao().insert(convertHistory);
-        boolean success = CURRENCY_DB_CONNECTION.exchangeRateDao().findByByKey(transaction.from.key) != null;
+        dbConnection.historyDao().insert(convertHistory);
+        boolean success = dbConnection.exchangeRateDao().findByByKey(transaction.from.key) != null;
         if (success) {
             dataAccessListener.onSuccess(transaction);
         } else {
-            dataAccessListener.onFailed(CONTEXT.getString(R.string.failed_network_data));
+            dataAccessListener.onFailed(context.getString(R.string.failed_network_data));
         }
     }
 
     public interface ConvertRequest {
         @GET(END_POINT)
         Call<JsonObject> convertCurrency(@Path("amount") String amount, @Path("from") String from
-                , @Path("to") String to, @Query(APP_ID) String appId);
+                , @Path("to") String to, @Query("app_id") String appId);
     }
 }

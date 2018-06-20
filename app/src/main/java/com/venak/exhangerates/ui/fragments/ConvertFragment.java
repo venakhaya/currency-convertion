@@ -22,7 +22,7 @@ import com.venak.exhangerates.services.handler.implementation.GetExchangeRatesSe
 
 import java.util.List;
 
-public class ConvertFragment extends BaseFragment implements DataAccessListener<Transaction> {
+public class ConvertFragment extends BaseFragment {
     public static String ARG_ITEM = "item";
     private ExchangeRate exchangeRate;
     private EditText amountEditText;
@@ -50,19 +50,9 @@ public class ConvertFragment extends BaseFragment implements DataAccessListener<
     }
 
     @Override
-    public void onSuccess(final Transaction results) {
-
-    }
-
-    @Override
-    public void onFailed(String message) {
-
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
-        new ServiceExecutor().executeService(new GetExchangeRatesServiceImpl(getLocalExchangeRates, false));
+        serviceExecutor.executeService(new GetExchangeRatesServiceImpl(getLocalExchangeRates, false));
     }
 
     private DataAccessListener getLocalExchangeRates = new DataAccessListener<List<ExchangeRate>>() {
@@ -76,7 +66,6 @@ public class ConvertFragment extends BaseFragment implements DataAccessListener<
                     toSpinner.setAdapter(adapter);
                 }
             });
-
 
             toSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -92,7 +81,6 @@ public class ConvertFragment extends BaseFragment implements DataAccessListener<
 
                 }
             });
-
 
             fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -132,7 +120,7 @@ public class ConvertFragment extends BaseFragment implements DataAccessListener<
 
             @Override
             public void onFailed(String message) {
-
+                convertedAmount.setText(message);
             }
         }, transaction));
     }

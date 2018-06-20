@@ -8,11 +8,17 @@ import com.venak.exhangerates.R;
 import com.venak.exhangerates.application.CurrencyApplication;
 import com.venak.exhangerates.util.Util;
 
+import javax.inject.Inject;
+
 public class ServiceExecutor {
+    @Inject
     Context context;
 
+    public ServiceExecutor(){
+        CurrencyApplication.getAppComponent().inject(this);
+    }
     public void executeService(final BaseServiceHandler baseServiceHandler) {
-        context = CurrencyApplication.getContext();
+
         if (Util.isNetworkAvailable(context)) {
             new AsyncTask<Void, Void, Void>() {
                 @Override
