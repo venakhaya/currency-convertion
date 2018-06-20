@@ -13,6 +13,7 @@ import javax.inject.Inject;
 public class BaseActivity extends AppCompatActivity {
     @Inject
     public ServiceExecutor serviceExecutor;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

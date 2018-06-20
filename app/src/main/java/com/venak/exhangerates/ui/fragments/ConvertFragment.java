@@ -41,12 +41,16 @@ public class ConvertFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.convert_layout, container, false);
-        fromSpinner = rootView.findViewById(R.id.from_spinner);
-        toSpinner = rootView.findViewById(R.id.to_spinner);
-        convertedAmount = rootView.findViewById(R.id.converted_amount_text_view);
-        amountEditText = rootView.findViewById(R.id.convert_amount_edit_text);
-        return rootView;
+        return inflater.inflate(R.layout.convert_layout, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        fromSpinner = view.findViewById(R.id.from_spinner);
+        toSpinner = view.findViewById(R.id.to_spinner);
+        convertedAmount = view.findViewById(R.id.converted_amount_text_view);
+        amountEditText = view.findViewById(R.id.convert_amount_edit_text);
     }
 
     @Override

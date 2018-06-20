@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/reg_margin"
+            android:background="@drawable/default_button"
             android:text="@string/add_currency" />
 
         <TextView

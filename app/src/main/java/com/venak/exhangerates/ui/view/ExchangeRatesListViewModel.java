@@ -9,9 +9,12 @@ import com.venak.exhangerates.services.handler.implementation.GetExchangeRatesSe
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class ExchangeRatesListViewModel extends ViewModel implements DataAccessListener<List<ExchangeRate>> {
-    ServiceExecutor serviceExecutor;
-    List<ExchangeRate> exchangeRates;
+    @Inject
+    public ServiceExecutor serviceExecutor;
+    private List<ExchangeRate> exchangeRates;
 
 
     public List<ExchangeRate> getExchangeRates() {

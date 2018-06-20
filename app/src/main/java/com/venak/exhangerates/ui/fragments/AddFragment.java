@@ -30,8 +30,7 @@ public class AddFragment extends BaseFragment implements DataAccessListener<Stri
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.add_currency, container, false);
-        return rootView;
+        return inflater.inflate(R.layout.add_currency, container, false);
     }
 
     @Override

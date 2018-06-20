@@ -52,23 +52,17 @@ public class RatesListActivity extends BaseActivity implements DataAccessListene
             fab.setVisibility(View.GONE);
         }
 
-        addFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                commitFragmentById(RatesListActivity.this, R.id.item_detail_container, new AddFragment());
-            }
-        });
+        addFab.setOnClickListener((view -> {
+            commitFragmentById(RatesListActivity.this, R.id.item_detail_container, new AddFragment());
+        }));
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isTwoPane) {
-                    Bundle arguments = new Bundle();
-                    arguments.putSerializable(ConvertFragment.ARG_ITEM, exchangeRate);
-                    ConvertFragment fragment = new ConvertFragment();
-                    fragment.setArguments(arguments);
-                    commitFragmentById(RatesListActivity.this, R.id.item_detail_container, fragment);
-                }
+        fab.setOnClickListener(view -> {
+            if (isTwoPane) {
+                Bundle arguments = new Bundle();
+                arguments.putSerializable(ConvertFragment.ARG_ITEM, exchangeRate);
+                ConvertFragment fragment = new ConvertFragment();
+                fragment.setArguments(arguments);
+                commitFragmentById(RatesListActivity.this, R.id.item_detail_container, fragment);
             }
         });
 
@@ -125,7 +119,7 @@ public class RatesListActivity extends BaseActivity implements DataAccessListene
                     commitFragmentById(ratesListActivity, R.id.item_detail_container, fragment);
                 } else {
                     Context context = view.getContext();
-                    Intent intent = new Intent(view.getContext(), DetailActivity.class);
+                    Intent intent = new Intent(ratesListActivity, DetailActivity.class);
                     intent.putExtra(DetailFragment.ARG_ITEM_ID, item);
                     context.startActivity(intent);
                 }
